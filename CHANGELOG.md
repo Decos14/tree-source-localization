@@ -2,11 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3] - 2025-09-09
+
+### Fixed
+
+- Bug where the variance of a positive normal edge delay was being simulated as the standard deviation.
+- Laplace transform and derivatives for Positive normal
+- tests to handle this
+
 ## [1.0.2] - 2025-08-10
 
 ### Fixed
 
 - bug preventing the use numpy arrays for observer lists
+- Updated Test functions to handle the changed code
 
 ### Changed
 

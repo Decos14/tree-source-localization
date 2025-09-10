@@ -61,7 +61,7 @@ class PositiveNormalDistribution(BaseDistribution):
     def sample(self) -> float:
         val = -1
         while val <= 0:
-            val = np.random.normal(self.mu, self.sigma2)
+            val = np.random.normal(self.mu, np.sqrt(self.sigma2))
         return val
 
     def mgf(self, t: float) -> float:

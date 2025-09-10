@@ -1,56 +1,80 @@
 import numpy as np
 import scipy as sp
+from scipy.stats import norm
+
+phi = norm.cdf
 
 
 def positive_normal_mgf(t: float, mu: float, sigma2: float) -> float:
-    return (
-        (np.exp(-1 * mu * t) * np.exp((1 / 2) * (sigma2) * (t**2))) * 2 * (1 - sp.stats.norm.cdf(np.sqrt(sigma2) * t))
-    )
+    sigma = np.sqrt(sigma2)
+    return (np.exp(-mu * t) * np.exp((1 / 2) * (sigma2) * (t**2))) * (phi((mu / sigma) - sigma * t) / phi(mu / sigma))
 
 
 def positive_normal_mgf_derivative(t: float, mu: float, sigma2: float) -> float:
+    sigma = np.sqrt(sigma2)
     intermediate_value_1 = (
-        (np.exp(-1 * mu * t) * np.exp((1 / 2) * (sigma2) * (t**2)))
-        * (-1 * mu + (sigma2) * t)
-        * 2
-        * (1 - sp.stats.norm.cdf(np.sqrt(sigma2) * t))
+        -mu
+        * (np.exp(-mu * t) * np.exp((1 / 2) * (sigma2) * (t**2)))
+        * (phi((mu / sigma) - sigma * t) / phi(mu / sigma))
     )
     intermediate_value_2 = (
-        np.exp(-1 * mu * t)
-        * np.exp((1 / 2) * (sigma2) * (t**2))
-        * (np.sqrt(sigma2))
-        * 2
-        * np.exp(-1 * mu * (np.sqrt(sigma2) * t))
-        * np.exp((1 / 2) * (sigma2) * ((np.sqrt(sigma2) * t) ** 2))
+        sigma2
+        * t
+        * (np.exp(-mu * t) * np.exp((1 / 2) * (sigma2) * (t**2)))
+        * (phi((mu / sigma) - sigma * t) / phi(mu / sigma))
     )
-    return intermediate_value_1 + intermediate_value_2
+    intermediate_value_3 = (np.exp(-mu * t) * np.exp((1 / 2) * (sigma2) * (t**2))) * (
+        -sigma * np.exp(-(((mu / sigma) - sigma * t) ** 2) / 2) / (phi(mu / sigma) * np.sqrt(2 * np.pi))
+    )
+    return intermediate_value_1 + intermediate_value_2 + intermediate_value_3
 
 
 def positive_normal_mgf_derivative2(t: float, mu: float, sigma2: float) -> float:
+    sigma = np.sqrt(sigma2)
     intermediate_value_1 = (
-        (np.exp(-1 * mu * t) * np.exp((1 / 2) * (sigma2) * (t**2)))
-        * (mu**2 - 2 * mu * sigma2 * t + (sigma2**2) * (t**2) * sigma2)
-        * 2
-        * (1 - sp.stats.norm.cdf(np.sqrt(sigma2) * t))
+        mu**2
+        * (np.exp(-mu * t) * np.exp((1 / 2) * (sigma2) * (t**2)))
+        * (phi((mu / sigma) - sigma * t) / phi(mu / sigma))
     )
     intermediate_value_2 = (
-        np.exp(-1 * mu * t)
-        * np.exp((1 / 2) * (sigma2) * (t**2))
-        * (-1 * mu + (sigma2) * t)
-        * (np.sqrt(sigma2))
-        * 2
-        * np.exp(-1 * mu * (np.sqrt(sigma2) * t))
-        * np.exp((1 / 2) * (sigma2) * ((np.sqrt(sigma2) * t) ** 2))
+        -mu
+        * sigma2
+        * t
+        * (np.exp(-mu * t) * np.exp((1 / 2) * (sigma2) * (t**2)))
+        * (phi((mu / sigma) - sigma * t) / phi(mu / sigma))
     )
     intermediate_value_3 = (
-        np.exp(-1 * mu * t)
-        * np.exp((1 / 2) * (sigma2) * (t**2)) ** (np.sqrt(sigma2))
-        * 2
-        * np.exp(-1 * mu * (np.sqrt(sigma2) * t))
-        * np.exp((1 / 2) * (sigma2) * ((-1 * np.sqrt(sigma2) * t) ** 2))
-        * (np.power(sigma2, 3 / 2) * t + mu)
+        -mu
+        * (np.exp(-mu * t) * np.exp((1 / 2) * (sigma2) * (t**2)))
+        * (-sigma * np.exp(-(((mu / sigma) - sigma * t) ** 2) / 2))
+        / (phi(mu / sigma) * np.sqrt(2 * np.pi))
     )
-    return intermediate_value_1 + intermediate_value_2 + intermediate_value_3
+    intermediate_value_4 = (
+        sigma2
+        * (sigma2 * t**2 + 1)
+        * (np.exp(-mu * t) * np.exp((1 / 2) * (sigma2) * (t**2)))
+        * (phi((mu / sigma) - sigma * t) / phi(mu / sigma))
+    )
+    intermediate_value_5 = (
+        sigma2
+        * t
+        * (np.exp(-mu * t) * np.exp((1 / 2) * (sigma2) * (t**2)))
+        * (-sigma * np.exp(-(((mu / sigma) - sigma * t) ** 2) / 2))
+        / (phi(mu / sigma) * np.sqrt(2 * np.pi))
+    )
+    intermediate_value_6 = (
+        (np.exp(-mu * t) * np.exp((1 / 2) * (sigma2) * (t**2)))
+        * (-sigma * np.exp(-(((mu / sigma) - sigma * t) ** 2) / 2) / (phi(mu / sigma) * np.sqrt(2 * np.pi)))
+        * (mu - sigma2 * t)
+    )
+    return (
+        intermediate_value_1
+        + 2 * intermediate_value_2
+        + 2 * intermediate_value_3
+        + intermediate_value_4
+        + 2 * intermediate_value_5
+        + intermediate_value_6
+    )
 
 
 def exponential_mgf(t: float, lam: float) -> float:

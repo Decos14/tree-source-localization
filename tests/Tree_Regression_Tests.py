@@ -40,7 +40,11 @@ class TestTreeRegression(unittest.TestCase):
             np.random.seed(42)
             u = np.random.rand(len(cls.observers))
             temp_file_exp = tempfile.NamedTemporaryFile(delete=False, mode="w+")
-            temp_file_exp.write("A,B,E,lambda=2.0\nB,C,E,lambda=2.0\n")
+            raw_edges_exp = {
+                "A,B": {"distribution": "E", "parameters": {"lambda": 2.0}},
+                "B,C": {"distribution": "E", "parameters": {"lambda": 2.0}},
+            }
+            json.dump(raw_edges_exp, temp_file_exp)
             temp_file_exp.close()
             obs = ["C"]
             times = {"C": 0.0}
@@ -54,7 +58,7 @@ class TestTreeRegression(unittest.TestCase):
             np.random.seed(42)
             u_3 = np.random.rand((len(obs)))
 
-            cond_mgf_3_val = tree_new_3._cond_joint_mgf(u_3, "A", "C", 3)
+            cond_mgf_3_val = tree_new_3._cond_joint_mgf(u_3, "A", "C", "exact")
 
             # Save data
             data = {
@@ -66,8 +70,8 @@ class TestTreeRegression(unittest.TestCase):
                 "A": cls.tree_new._A,
                 "Infection_times": cls.tree_new.infection_times,
                 "Joint_MGF": cls.tree_new._joint_mgf(u, "A"),
-                "Cond_Joint_MGF_1": cls.tree_new._cond_joint_mgf(u, "A", cls.observers[0], 1),
-                "Cond_Joint_MGF_2": cls.tree_new._cond_joint_mgf(u, "A", cls.observers[0], 2),
+                "Cond_Joint_MGF_1": cls.tree_new._cond_joint_mgf(u, "A", cls.observers[0], "linear"),
+                "Cond_Joint_MGF_2": cls.tree_new._cond_joint_mgf(u, "A", cls.observers[0], "exponential"),
                 "Cond_Joint_MGF_3": cond_mgf_3_val,
                 "Objective_Function": cls.tree_new._objective_function(u, "A"),
                 "localize": cls.tree_new.localize(),
