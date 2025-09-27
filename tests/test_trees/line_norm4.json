@@ -1,0 +1,72 @@
+{
+    "0,1": {
+        "distribution": "N",
+        "parameters": {
+            "mu": 1.0,
+            "sigma2": 0.25
+        }
+    },
+    "1,2": {
+        "distribution": "N",
+        "parameters": {
+            "mu": 1.0,
+            "sigma2": 0.25
+        }
+    },
+    "2,3": {
+        "distribution": "N",
+        "parameters": {
+            "mu": 1.0,
+            "sigma2": 0.25
+        }
+    },
+    "3,4": {
+        "distribution": "N",
+        "parameters": {
+            "mu": 1.0,
+            "sigma2": 0.25
+        }
+    },
+    "4,5": {
+        "distribution": "N",
+        "parameters": {
+            "mu": 1.0,
+            "sigma2": 0.25
+        }
+    },
+    "5,6": {
+        "distribution": "N",
+        "parameters": {
+            "mu": 1.0,
+            "sigma2": 0.25
+        }
+    },
+    "6,7": {
+        "distribution": "N",
+        "parameters": {
+            "mu": 1.0,
+            "sigma2": 0.25
+        }
+    },
+    "7,8": {
+        "distribution": "N",
+        "parameters": {
+            "mu": 1.0,
+            "sigma2": 0.25
+        }
+    },
+    "8,9": {
+        "distribution": "N",
+        "parameters": {
+            "mu": 1.0,
+            "sigma2": 0.25
+        }
+    },
+    "9,10": {
+        "distribution": "N",
+        "parameters": {
+            "mu": 1.0,
+            "sigma2": 0.25
+        }
+    }
+}

@@ -1,0 +1,62 @@
+{
+    "0,1": {
+        "distribution": "E",
+        "parameters": {
+            "lambda": 1.0
+        }
+    },
+    "1,2": {
+        "distribution": "E",
+        "parameters": {
+            "lambda": 1.0
+        }
+    },
+    "2,3": {
+        "distribution": "E",
+        "parameters": {
+            "lambda": 1.0
+        }
+    },
+    "3,4": {
+        "distribution": "E",
+        "parameters": {
+            "lambda": 1.0
+        }
+    },
+    "4,5": {
+        "distribution": "E",
+        "parameters": {
+            "lambda": 1.0
+        }
+    },
+    "5,6": {
+        "distribution": "E",
+        "parameters": {
+            "lambda": 1.0
+        }
+    },
+    "6,7": {
+        "distribution": "E",
+        "parameters": {
+            "lambda": 1.0
+        }
+    },
+    "7,8": {
+        "distribution": "E",
+        "parameters": {
+            "lambda": 1.0
+        }
+    },
+    "8,9": {
+        "distribution": "E",
+        "parameters": {
+            "lambda": 1.0
+        }
+    },
+    "9,10": {
+        "distribution": "E",
+        "parameters": {
+            "lambda": 1.0
+        }
+    }
+}
